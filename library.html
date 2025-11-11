@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Library</title>
+    <link rel="stylesheet" href="library.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/mustache.js/4.2.0/mustache.min.js"></script>
+</head>
+<body>
+    
+
+        
+    <main>
+            <button id="showDialog">Add</button>
+            <button id="delete">Delete</button>
+            <button id="alter">Alter</button>
+            <div class="tittle">
+                    <h3>ID</h3>
+                    <h3>Read</h3>
+                    <h3>Tittle</h3>
+                    <h3>Author</h3>
+                    <h3>Language</h3>
+                    <h3>Description</h3>
+                </div>
+               
+                    <scrip id="bookTemplate" type="text/template">
+                        {{#book}}
+                            <div class="line">
+                                <span>{{ID}}</span>
+                                <span>{{Read}}</span>
+                                <span>{{Tittle}}</span>
+                                <span>{{Author}}</span>
+                                <span>{{Language}}</span>
+                                <span>{{Description}}</span>
+                            </div>
+                        {{/book}}
+                    </scrip>
+              
+
+                <dialog id="favDialog">
+                <form method="dialog">
+                    <div>
+                        <div><label for="tittle">Tittle:</label><input type="text" id="tittle" autofocus></div>
+                        <div><label for="author">Author:</label><input type="text" id="author" ></div>
+                        <div>
+                            <label for="language">
+                                Language:
+                                <select id="language" >
+                                    <option value="default">Choose...</option>
+                                    <option >English</option>
+                                    <option >French</option>
+                                    <option >Spanish</option>
+                                </select>
+                            </label>
+                        </div>
+                        <div>
+                            <p><label for="description">Description:</label></p>
+                            <textarea name="" id="description" required></textarea>
+                        </div>
+                        <div>
+                            <p><label for="read">Read:</label></p>
+                            <input type="checkbox"  id="read">
+                        </div>
+                    </div>
+                    <div>
+                        <button value="cancel" formmethod="dialog">Cancel</button>
+                        <button type="submit" id="confirmBtn">Confirm</button>
+                    </div>
+                </form>
+            </dialog>
+                
+    </main>
+
+    
+ 
+</body>
+       <script src="./library.js" type="module"></script>
+</html>

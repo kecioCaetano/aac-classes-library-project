@@ -1,0 +1,22 @@
+
+.tittle{
+    display: grid;
+    grid-template-columns: repeat(6, 1fr);
+}
+
+.line{
+    background-color:antiquewhite;
+    display: grid;
+    grid-template-columns: repeat(6, 1fr);
+}
+
+::backdrop {
+  background-image: linear-gradient(
+    45deg,
+    magenta,
+    rebeccapurple,
+    dodgerblue,
+    green
+  );
+  opacity: 0.75;
+}

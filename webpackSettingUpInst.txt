@@ -1,0 +1,237 @@
+// create the package.jason
+npm init -y
+
+// npm create node_modules and package-lock.jason
+npm install -D webpack webpack-cli
+
+// create src dir and entry file.js
+mkdir ./src && touch ./src/index.js
+
+// create a webpack.config.js
+touch ./webpack.config.js
+
+// add initial configs
+
+                // webpack.config.js
+
+                const path = require("path");
+                module.exports = {
+                    mode: "development",
+                    entry: "./src/index.js",
+                    output: {
+                        filename: "main.js",
+                        path: path.resolve(__dirname, "dist"),
+                        clean: true,
+                    },
+                };
+
+// create the ./dist folder and the output file main.js
+npx webpack
+
+// Handling HTML
+npm install -D html-webpack-plugin
+
+// create a template.html into ./src
+touch ./src/template.html
+
+// add (+ signal) new lines to your webpack.config.js
+
+                // webpack.config.js
+                const path = require("path");
+                + const HtmlWebpackPlugin = require("html-webpack-plugin");
+
+                module.exports = {
+                    mode: "development",
+                    entry: "./src/index.js",
+                    output: {
+                        filename: "main.js",
+                        path: path.resolve(__dirname, "dist"),
+                        clean: true,
+                    },
+                    + plugins: [
+                    +     new HtmlWebpackPlugin({
+                    +     template: "./src/template.html",
+                    +     }),
+                    + ],
+                };
+
+// create the ./dist/index.html
+npx webpack
+
+// loading CSS
+npm install -D style-loader css-loader
+
+// add (+ signal) new config to webpack.config.js
+
+                    // webpack.config.js
+                    const path = require("path");
+                    const HtmlWebpackPlugin = require("html-webpack-plugin");
+
+                    module.exports = {
+                        mode: "development",
+                        entry: "./src/index.js",
+                        output: {
+                            filename: "main.js",
+                            path: path.resolve(__dirname, "dist"),
+                            clean: true,
+                        },
+                        plugins: [
+                            new HtmlWebpackPlugin({
+                            template: "./src/template.html",
+                            }),
+                        ],
+                        + module: {
+                        +     rules: [
+                        +         {
+                        +             test: /\.css$/i,
+                        +             use: ["style-loader", "css-loader"],
+                        +         },
+                        +     ],
+                        + },
+                    };
+
+// Don't forget to import your css into your entry point
+import "./styles.css";
+
+// set up the css with your ./dist/index.html
+npx  webpack
+
+//Loading images
+// css Image files used in our CSS inside url() are handle by css-loader
+// Image files we reference in our HTML template, e.g. as the src of an <img>
+npm install -D html-loader
+
+// add(+ signal) new configs to webpack.config.js
+
+                    // webpack.config.js
+                    const path = require("path");
+                    const HtmlWebpackPlugin = require("html-webpack-plugin");
+
+                    module.exports = {
+                        mode: "development",
+                        entry: "./src/index.js",
+                        output: {
+                            filename: "main.js",
+                            path: path.resolve(__dirname, "dist"),
+                            clean: true,
+                        },
+                        plugins: [
+                            new HtmlWebpackPlugin({
+                            template: "./src/template.html",
+                            }),
+                        ],
+                        module: {
+                            rules: [
+                                {
+                                    test: /\.css$/i,
+                                    use: ["style-loader", "css-loader"],
+                                },
+                                + {
+                                +     test: /\.html$/i,
+                                +     loader: "html-loader",
+                                + },
+                            ],
+                        },
+                    };
+
+// Images we use in our JavaScript, where we will need to import the files
+// for Images we use in our JavaScript (don't forget to import on you .js)
+// import exampleImg from "./imgName.png";
+// add (+ signal) new config to webpack.config.js
+
+                    // webpack.config.js
+                    const path = require("path");
+                    const HtmlWebpackPlugin = require("html-webpack-plugin");
+
+                    module.exports = {
+                        mode: "development",
+                        entry: "./src/index.js",
+                        output: {
+                            filename: "main.js",
+                            path: path.resolve(__dirname, "dist"),
+                            clean: true,
+                        },
+                        plugins: [
+                            new HtmlWebpackPlugin({
+                            template: "./src/template.html",
+                            }),
+                        ],
+                        module: {
+                            rules: [
+                                {
+                                    test: /\.css$/i,
+                                    use: ["style-loader", "css-loader"],
+                                },
+                                {
+                                    test: /\.html$/i,
+                                    loader: "html-loader",
+                                },
+                                + {
+                                +     test: /\.(png|svg|jpg|jpeg|gif)$/i,
+                                +     type: "asset/resource",
+                                + },
+                            ],
+                        },
+                    };   
+
+
+
+// install a automatic bundler (so you don't need run npx webpack all the time)
+// and Source Map that correlate code/error numbers between stage environment and development
+npm install -D webpack-dev-server 
+
+
+// add (+ signal) new config to webpack.config.js
+
+                            // webpack.config.js
+                            const path = require("path");
+                            const HtmlWebpackPlugin = require("html-webpack-plugin");
+
+                            module.exports = {
+                                mode: "development",
+                                entry: "./src/index.js",
+                                output: {
+                                    filename: "main.js",
+                                    path: path.resolve(__dirname, "dist"),
+                                    clean: true,
+                                },
+                                + devtool: "eval-source-map",
+                                + devServer: {
+                                +     watchFiles: ["./src/template.html"],
+                                + },
+                                plugins: [
+                                    new HtmlWebpackPlugin({
+                                    template: "./src/template.html",
+                                    }),
+                                ],
+                                module: {
+                                    rules: [
+                                    {
+                                        test: /\.css$/i,
+                                        use: ["style-loader", "css-loader"],
+                                    },
+                                    {
+                                        test: /\.html$/i,
+                                        loader: "html-loader",
+                                    },
+                                    {
+                                        test: /\.(png|svg|jpg|jpeg|gif)$/i,
+                                        type: "asset/resource",
+                                    },
+                                    ],
+                                },
+                            };
+
+//we can start up the dev server
+npx webpack serve
+// Our site will then be available via http://localhost:8080/ by default.
+
+// Restart the dev server upon config changes
+// Note that the webpack-dev-server only reads your webpack configuration when you start it. 
+// If you change the webpack config file while the dev server is running, it will not reflect 
+// those config changes. Use Ctrl + C in the terminal to kill it then rerun npx webpack serve 
+// to apply the new config.
+
+// create a .gitignore and add ./node_modules and ./dist folders
+// .gitignore can be created by gitHub when creating a new repository.
+touch .gitignore

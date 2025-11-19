@@ -4,9 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Library</title>
-    <link rel="stylesheet" href="library.css">
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/mustache.js/4.2.0/mustache.min.js"></script>
+   
 </head>
 <body>
     
@@ -25,18 +23,18 @@
                     <h3>Description</h3>
                 </div>
                
-                    <scrip id="bookTemplate" type="text/template">
-                        {{#book}}
+                    <script id="booksTemplate" type="x-tmpl-mustache">
+                        {{#Book}}
                             <div class="line">
-                                <span>{{ID}}</span>
-                                <span>{{Read}}</span>
-                                <span>{{Tittle}}</span>
-                                <span>{{Author}}</span>
-                                <span>{{Language}}</span>
-                                <span>{{Description}}</span>
+                                <span></span>
+                                <span>{{read}}</span>
+                                <span>{{tittle}}</span>
+                                <span>{{author}}</span>
+                                <span>{{language}}</span>
+                                <span>{{description}}</span>
                             </div>
-                        {{/book}}
-                    </scrip>
+                        {{/Book}}
+                    </script>
               
 
                 <dialog id="favDialog">
@@ -76,5 +74,7 @@
     
  
 </body>
-       <script src="./library.js" type="module"></script>
+         <!-- Libraries -->
+            <script src="https://unpkg.com/mustache@latest"></script>
+        <!-- My script -->
 </html>

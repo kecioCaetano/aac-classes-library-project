@@ -1,6 +1,6 @@
+import $ from 'jquery';
 import "./library.css";
-// import Mustache from './../../../mustache';
-
+import Mustache from 'mustache';
 
 class Book {
 
@@ -56,7 +56,7 @@ class viewerBook{
     #deleteButton
     #alterButton
 
-    #bookTemplate
+    #booksTemplate
     #tittle
     #author
     #language
@@ -66,7 +66,7 @@ class viewerBook{
     constructor(){
         this.#cacheDom();
         this.lib = new MyLibrary();
-        this.renderHtml();
+        this.renderInitial();
     }
 
     #cacheDom(){
@@ -78,7 +78,7 @@ class viewerBook{
         this.#deleteButton = this.#$m.find("#delete");
         this.#alterButton = this.#$m.find("#alter");
         
-        this.#bookTemplate = this.#$m.find("#bookTemplate");
+        this.#booksTemplate = this.#$m.find("#booksTemplate");
         this.#tittle = this.#$m.find("#tittle");
         this.#author = this.#$m.find("#author");
         this.#language = this.#$m.find("#language");
@@ -86,11 +86,18 @@ class viewerBook{
         this.#read = this.#$m.find("#read");
     }
 
-    renderHtml(){
-        // output = Mustache.render()
-        // const bData = new Book(true, "The great wall","Smith", "Eng", "Excellent book.", 2013);
-        //this.lib.addBook(bData);
-        // this.#bookTemplate.html(Mustache.render(this.#bookTemplate, bData));
+    renderInitial(){
+        
+        this.lib.addBook(new Book(true, "The great wall","Smith", "Eng", "Excellent book.", 2013));
+        this.lib.addBook(new Book(false, "Holly Bible","GOD", "Eng", "The best", 1));
+        console.log(this.lib);
+        console.log(this.lib.getLibrary);
+        
+        const view = {Book: this.lib.getLibrary}
+        console.log(view);
+
+        const renderedHtml = Mustache.render(this.#booksTemplate.html(), view);
+        this.#booksTemplate.before(renderedHtml);
 
     }
 

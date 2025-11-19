@@ -27,6 +27,7 @@
     "webpack-dev-server": "^5.2.2"
   },
   "dependencies": {
-    "jquery": "^3.7.1"
+    "jquery": "^3.7.1",
+    "mustache": "^4.2.0"
   }
 }

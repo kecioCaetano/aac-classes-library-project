@@ -1,4 +1,3 @@
-
 // webpack.config.js
 
 const path = require("path");
@@ -11,6 +10,10 @@ module.exports = {
         filename: "main.js",
         path: path.resolve(__dirname, "dist"),
         clean: true,
+    },
+    devtool: "eval-source-map",
+    devServer: {
+        watchFiles: ["./src/library.html"],
     },
     plugins: [
         new HtmlWebpackPlugin({

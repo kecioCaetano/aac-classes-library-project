@@ -62,14 +62,21 @@ class viewerBook{
     #language
     #description
     #read
+    #year
 
     constructor(){
+
         this.#cacheDom();
         this.lib = new MyLibrary();
-        this.renderInitial();
+        this.lib.addBook(new Book(true, "The great wall","Smith", "Eng", "Excellent book.", 2013));
+        this.lib.addBook(new Book(false, "Holly Bible","GOD", "Eng", "The best", 1));
+        this.#render();
+        this.#bindEvents();
+
     }
 
     #cacheDom(){
+
         this.#$m = $("main");
         this.#favDialog = this.#$m.find("#favDialog");
         
@@ -84,17 +91,17 @@ class viewerBook{
         this.#language = this.#$m.find("#language");
         this.#description = this.#$m.find("#description");
         this.#read = this.#$m.find("#read");
+        this.#year = this.#$m.find("#year");
     }
 
-    renderInitial(){
+    #render(){
         
-        this.lib.addBook(new Book(true, "The great wall","Smith", "Eng", "Excellent book.", 2013));
-        this.lib.addBook(new Book(false, "Holly Bible","GOD", "Eng", "The best", 1));
-        console.log(this.lib);
-        console.log(this.lib.getLibrary);
+        
+        // console.log(this.lib);
+        // console.log(this.lib.getLibrary);
         
         const view = {Book: this.lib.getLibrary}
-        console.log(view);
+        // console.log(view);
 
         const renderedHtml = Mustache.render(this.#booksTemplate.html(), view);
         this.#booksTemplate.before(renderedHtml);
@@ -103,6 +110,20 @@ class viewerBook{
 
     get details(){
         return this.#deleteButton;
+    }
+
+    #bindEvents(){
+        this.#showButton.on('click', this.#showModalAdd.bind(this));
+        // this.#confirmBtn.on('click', this.addBook().bind(this));
+    }
+
+    #showModalAdd(){
+        this.#favDialog.modal('show');
+    }
+
+    addBook(){
+        // console.log(this.#read, this.#tittle,this.#author, this.#language, this.#description, this.#year)
+        // this.lib.addBook(new Book(this.#read, this.#tittle,this.#author, this.#language, this.#description, this.#year));
     }
 }
 
